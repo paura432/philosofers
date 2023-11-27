@@ -1,36 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.c                                            :+:      :+:    :+:   */
+/*   list.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pramos <pramos@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/13 17:06:05 by pramos            #+#    #+#             */
-/*   Updated: 2023/11/27 22:17:47 by pramos           ###   ########.fr       */
+/*   Created: 2023/11/27 19:25:28 by pramos            #+#    #+#             */
+/*   Updated: 2023/11/27 19:29:42 by pramos           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	print_list(t_data_ph *philo)
+t_data_ph	*lstlast(t_data_ph *lst)
 {
-	while(philo != NULL)
+	if (!lst)
+		return (0);
+	while (lst->next)
+		lst = lst->next;
+	return (lst);
+}
+
+void	lstadd_back(t_data_ph **lst, t_data_ph *new)
+{
+	t_data_ph	*new1;
+
+	if (*lst)
 	{
-		printf("%i\n", philo->id);
-		philo = philo->next;
+		new1 = lstlast(*lst);
+		new1->next = new;
+		new->next = NULL;
+	}
+	else
+	{
+		*lst = new;
+		(*lst)->next = NULL;
 	}
 }
-
-int main(int ac, char **av)
-{
-	t_data data;
-	t_data_ph *philo;
-	int i;
-
-	i = 3;
-	philo = NULL;
-	init(&data, &philo, av, ac);
-	print_list(philo);
-    return (0);
-}
-

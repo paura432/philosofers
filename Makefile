@@ -1,11 +1,11 @@
 NAME = philo
 
-MY_SOURCES = philo.c init_data.c utils.c
+MY_SOURCES = philo.c init_data.c utils.c list.c
 
 MY_OBJECTS = $(MY_SOURCES:.c=.o)
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -Ilibreria -g3 -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -Ilibreria #-g3 -fsanitize=address
 
 all: ${NAME}
 ${NAME}: ${MY_OBJECTS}
