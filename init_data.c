@@ -6,7 +6,7 @@
 /*   By: pramos <pramos@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 17:49:13 by pramos            #+#    #+#             */
-/*   Updated: 2023/11/27 20:08:22 by pramos           ###   ########.fr       */
+/*   Updated: 2023/11/28 20:05:06 by pramos           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ t_data_ph	*new_philo(t_data *data, int i)
 
 	new_philo = malloc(sizeof(t_data_ph));
 	new_philo->ph = malloc(sizeof(pthread_t));
-	
+	new_philo->ph_mutex = malloc(sizeof(pthread_mutex_t));
+
 	new_philo->id = i + 1;
 	new_philo->t_2_die = data->t_2_die;
 	new_philo->t_eating = 0;
@@ -56,4 +57,5 @@ void	init(t_data *data, t_data_ph **philo, char **av, int ac)
 {
 	init_data(data, av, ac);
 	init_philo(data, philo);
+	init_thread(philo);
 }
