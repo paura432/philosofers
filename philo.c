@@ -6,31 +6,32 @@
 /*   By: pramos <pramos@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 17:06:05 by pramos            #+#    #+#             */
-/*   Updated: 2023/11/27 22:17:47 by pramos           ###   ########.fr       */
+/*   Updated: 2023/12/04 20:07:26 by pramos           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	print_list(t_data_ph *philo)
+void	print_list(t_data *data)
 {
-	while(philo != NULL)
+	int i;
+
+	i = 0;
+	while(i < data->n_of_ph)
 	{
-		printf("%i\n", philo->id);
-		philo = philo->next;
+		printf("id :: %i\n", data->ph[i].id);
+		i++;
 	}
 }
 
 int main(int ac, char **av)
 {
 	t_data data;
-	t_data_ph *philo;
 	int i;
 
 	i = 3;
-	philo = NULL;
-	init(&data, &philo, av, ac);
-	print_list(philo);
+	init(&data, av, ac);
+	// print_list(&data);
     return (0);
 }
 
