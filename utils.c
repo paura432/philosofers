@@ -6,7 +6,7 @@
 /*   By: pramos <pramos@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 17:53:59 by pramos            #+#    #+#             */
-/*   Updated: 2023/12/04 17:53:13 by pramos           ###   ########.fr       */
+/*   Updated: 2023/12/05 19:55:29 by pramos           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ long	ft_atoi(char *str)
 	return (a * signo);
 }
 
-long int	get_time(void)
+u_int64_t	get_time(void)
 {
 	struct timeval time;
 
@@ -44,6 +44,6 @@ long int	get_time(void)
 		perror("Error in gettimeofday");
 		return 0;
 	}
-	return (time.tv_sec * 1000) + (time.tv_usec / 1000);
+	return (time.tv_sec * (u_int64_t)1000) + (time.tv_usec / 1000);
 }
 
