@@ -6,7 +6,7 @@
 /*   By: pramos <pramos@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 17:06:05 by pramos            #+#    #+#             */
-/*   Updated: 2023/12/05 17:26:00 by pramos           ###   ########.fr       */
+/*   Updated: 2023/12/19 22:07:42 by pramos           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,16 @@ void	print_list(t_data *data)
 	}
 }
 
+// void	leaks(void)
+// {
+// 	system("leaks -q philo");
+// }
+
 int main(int ac, char **av)
 {
 	t_data data;
-	int i;
 
-	i = 3;
 	init(&data, av, ac);
-	// print_list(&data);
     return (0);
 }
 

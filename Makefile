@@ -1,6 +1,6 @@
 NAME = philo
 
-MY_SOURCES = philo.c init_data.c utils.c philos_things.c threads.c
+MY_SOURCES = philo.c init_data.c utils.c threads.c
 
 MY_OBJECTS = $(MY_SOURCES:.c=.o)
 

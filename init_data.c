@@ -6,7 +6,7 @@
 /*   By: pramos <pramos@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 17:49:13 by pramos            #+#    #+#             */
-/*   Updated: 2023/12/12 20:37:56 by pramos           ###   ########.fr       */
+/*   Updated: 2023/12/19 22:15:39 by pramos           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,12 @@ void	init_data(t_data *data, char **av, int ac)
 	data->t_2_die = (u_int64_t) ft_atoi(av[2]);
 	data->t_2_eat = (u_int64_t) ft_atoi(av[3]);
 	data->t_2_sleep = (u_int64_t) ft_atoi(av[4]);
+	data->times_eat = 0;
 	data->dead = 0;
 	if(ac == 6)
 		data->n_ph_eat = ft_atoi(av[5]);
+	else
+		data->n_ph_eat = ft_atoi("0");
 }
 
 void	new_philo(t_data *data, int i)
@@ -30,7 +33,6 @@ void	new_philo(t_data *data, int i)
 	data->ph[i].data = data;
 	data->ph[i].id = i + 1;
 	data->ph[i].fork_right = &data->forks[i];
-	data->ph[i].times_eat = 0;
 	if(i + 1 != data->n_of_ph)
 		data->ph[i].fork_left = &data->forks[i + 1];
 	else
@@ -52,11 +54,36 @@ void	init_philo(t_data *data)
 		new_philo(data, i);
 		pthread_mutex_init(&data->forks[i], NULL);
 	}
+	pthread_mutex_init(data->print, NULL);
+	if(data->n_of_ph == 1)
+	{
+		usleep(data->t_2_die * 1000);
+		print(&data->ph[0], died);
+	}
+}
+
+int	check_errors( char **av, int ac)
+{
+	int i;
+
+	i = 1;
+	if(ac > 6 || ac < 5)
+		return(printf("Many/missing armguments\n"), 0);
+	while(av[i] != NULL)
+	{
+		if(!ft_atoi(av[i]))
+			return(printf("Only numbers\n"), 0);
+		i++;
+	}
+	return(1);
 }
 
 void	init(t_data *data, char **av, int ac)
 {
+	if(!check_errors( av, ac))
+		return ;
 	init_data(data, av, ac);
 	init_philo(data);
 	init_thread(data);
+	finish_thread(data);
 }

@@ -6,37 +6,23 @@
 /*   By: pramos <pramos@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 17:03:30 by pramos            #+#    #+#             */
-/*   Updated: 2023/12/12 21:10:21 by pramos           ###   ########.fr       */
+/*   Updated: 2023/12/19 21:51:26 by pramos           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-// void	*thread_create(void *data)
-// {
-// 	t_data_ph *new_philo = (t_data_ph *)data;
-// 	pthread_mutex_lock(new_philo->ph_mutex);
-
-
-// 	pthread_mutex_unlock(new_philo->ph_mutex);
-// 	return(0);
-// }
-
-// void	init_thread(t_data_ph **philo)
-// {
-// 	pthread_create((*philo)->ph, NULL, thread_create, (void *) (*philo));
-// 	pthread_join(*(*philo)->ph, NULL);
-// }
 void	forks_up(t_data_ph *philo)
 {
-	// printf("id :: %i\n", philo->id);
 	pthread_mutex_lock(philo->fork_right);
-	print(philo, fork_up);
 	pthread_mutex_lock(philo->fork_left);
+
 	print(philo, fork_up);
-	philo->t_4_dead = get_time();
+	print(philo, fork_up);
 	print(philo, eating);
-	philo->times_eat += 1;
+	philo->t_4_dead = get_time();
+	if(philo->id == philo->data->n_of_ph)
+		philo->data->times_eat += 1;
 }
 
 void	forks_down(t_data_ph *philo)
@@ -58,11 +44,7 @@ void	print(t_data_ph *philo, char *message)
 	if(philo->data->dead == 0)
 		printf("%llu ms %i %s\n", (get_time() - philo->data->start_time), philo->id, message);
 	else if(message == died && philo->data->dead == 1)
-	{
-		// free_threads(philo);
 		printf("%llu ms %i %s\n", (get_time() - philo->data->start_time), philo->id, message);
-		exit(EXIT_FAILURE);
-	}
 	pthread_mutex_unlock(philo->data->print);
 }
 
@@ -72,16 +54,16 @@ void	*philo_start(void *ph)
 
 	philo = (t_data_ph *)ph;
 	if(philo->id % 2 == 0)
-		usleep(50);
+		usleep(10);
 	while(philo->data->dead == 0)
 	{
-		if(philo->data->dead == 0)
-			eat(philo);
-		if(philo->data->dead == 0)
-			slep(philo);
-		if(philo->data->dead == 0)
-			think(philo);
-		if(philo->times_eat == philo->data->n_ph_eat)
+		forks_up(philo);
+		ft_usleep(philo, philo->data->t_2_eat);
+		forks_down(philo);
+		print(philo, sleeping);
+		ft_usleep(philo, philo->data->t_2_sleep);
+		print(philo, thinking);
+		if(philo->data->times_eat == philo->data->n_ph_eat)
 			break;
 	}
 	return NULL;
@@ -92,10 +74,9 @@ void	init_thread(t_data *data)
 	int i;
 
 	i = -1;
-	while(++i < data->n_of_ph)
+	while(++i < data->n_of_ph && data->n_of_ph > 1)
 		pthread_create(&data->philosopher[i], NULL, &philo_start, (void *)&data->ph[i]);
-
 	i = -1;
-	while(++i < data->n_of_ph)
+	while(++i < data->n_of_ph && data->n_of_ph > 1)
 		pthread_join(data->philosopher[i], NULL);
 }
