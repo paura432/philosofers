@@ -6,24 +6,24 @@
 /*   By: pramos <pramos@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 17:06:36 by pramos            #+#    #+#             */
-/*   Updated: 2023/12/19 22:01:48 by pramos           ###   ########.fr       */
+/*   Updated: 2024/01/09 21:15:10 by pramos           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_H
 # define PHILO_H
-#include <pthread.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <unistd.h>
+# include <pthread.h>
+# include <stdlib.h>
+# include <stdio.h>
+# include <unistd.h>
 # include <sys/time.h>
 
 //	philo_msg
-# define fork_up "has taken a fork"
-# define thinking "is thinking"
-# define sleeping "is sleeping"
-# define eating "is eating"
-# define died "died"
+# define FORK_UP "has taken a fork"
+# define THINKING "is thinking"
+# define SLEEPING "is sleeping"
+# define EATING "is eating"
+# define DIED "died"
 
 //data of the philosopher
 typedef struct s_data_ph
@@ -46,12 +46,15 @@ typedef struct s_data
 	int 				n_of_ph;
 	int 				n_ph_eat;
 	int 				times_eat;
+	int					flag;
 	u_int64_t			start_time;
 	u_int64_t 			t_2_die;
 	u_int64_t 			t_2_eat;
 	u_int64_t 			t_2_sleep;
 	pthread_mutex_t		*forks;
 	pthread_mutex_t		*print;
+	pthread_mutex_t		*eat;
+	pthread_mutex_t		*stop;
 	pthread_t			*philosopher;
 	t_data_ph			*ph;
 

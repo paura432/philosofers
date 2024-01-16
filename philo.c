@@ -6,22 +6,23 @@
 /*   By: pramos <pramos@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 17:06:05 by pramos            #+#    #+#             */
-/*   Updated: 2023/12/19 22:07:42 by pramos           ###   ########.fr       */
+/*   Updated: 2024/01/09 21:03:13 by pramos           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	print_list(t_data *data)
+void	print(t_data_ph *philo, char *message)
 {
-	int i;
+	pthread_mutex_lock(philo->data->print);
+	u_int64_t	time;
 
-	i = 0;
-	while(i < data->n_of_ph)
-	{
-		printf("id :: %i\n", data->ph[i].id);
-		i++;
-	}
+	time = philo->data->start_time;
+	if (philo->data->dead == 0)
+		printf("%llu ms %i %s\n", (get_time() - time), philo->id, message);
+	else if (message == DIED && philo->data->dead == 1)
+		printf("%llu ms %i %s\n", (get_time() - time), philo->id, message);
+	pthread_mutex_unlock(philo->data->print);
 }
 
 // void	leaks(void)
@@ -29,11 +30,10 @@ void	print_list(t_data *data)
 // 	system("leaks -q philo");
 // }
 
-int main(int ac, char **av)
+int	main(int ac, char **av)
 {
-	t_data data;
+	t_data	data;
 
 	init(&data, av, ac);
-    return (0);
+	return (0);
 }
-

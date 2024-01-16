@@ -6,7 +6,7 @@
 /*   By: pramos <pramos@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 17:53:59 by pramos            #+#    #+#             */
-/*   Updated: 2023/12/19 21:50:36 by pramos           ###   ########.fr       */
+/*   Updated: 2024/01/09 16:35:52 by pramos           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,13 @@ void	ft_usleep(t_data_ph *philo, u_int64_t time)
 	u_int64_t slep_2;
 
 	slep_2 = get_time();
-	while(get_time() - slep_2 < time && philo)
+	while (get_time() - slep_2 < time && philo)
 	{
 		usleep(100);
-		if(get_time() - philo->t_4_dead >= philo->data->t_2_die)
+		if (get_time() - philo->t_4_dead >= philo->data->t_2_die)
 		{
 			philo->data->dead += 1;
-			print(philo, died);
+			print(philo, DIED);
 		}
 	}
 
@@ -69,7 +69,7 @@ void	finish_thread(t_data *data)
 	int i;
 
 	i = -1;
-	while(++i < data->n_of_ph)
+	while (++i < data->n_of_ph)
 		pthread_mutex_destroy(&data->forks[i]);
 	pthread_mutex_destroy(data->print);
 

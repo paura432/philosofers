@@ -5,7 +5,7 @@ MY_SOURCES = philo.c init_data.c utils.c threads.c
 MY_OBJECTS = $(MY_SOURCES:.c=.o)
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -Ilibreria #-g3 -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -Ilibreria -g3 -fsanitize=thread
 
 all: ${NAME}
 ${NAME}: ${MY_OBJECTS}
