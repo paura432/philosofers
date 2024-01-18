@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pramos <pramos@student.42.fr>              +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 17:06:36 by pramos            #+#    #+#             */
-/*   Updated: 2024/01/09 21:15:10 by pramos           ###   ########.fr       */
+/*   Updated: 2024/01/16 20:49:15 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,6 @@ typedef struct s_data
 	u_int64_t 			t_2_sleep;
 	pthread_mutex_t		*forks;
 	pthread_mutex_t		*print;
-	pthread_mutex_t		*eat;
-	pthread_mutex_t		*stop;
 	pthread_t			*philosopher;
 	t_data_ph			*ph;
 

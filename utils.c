@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pramos <pramos@student.42.fr>              +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 17:53:59 by pramos            #+#    #+#             */
-/*   Updated: 2024/01/09 16:35:52 by pramos           ###   ########.fr       */
+/*   Updated: 2024/01/16 20:56:31 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void	ft_usleep(t_data_ph *philo, u_int64_t time)
 		if (get_time() - philo->t_4_dead >= philo->data->t_2_die)
 		{
 			philo->data->dead += 1;
+			philo->data->flag += 1;
 			print(philo, DIED);
 		}
 	}
