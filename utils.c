@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 17:53:59 by pramos            #+#    #+#             */
-/*   Updated: 2024/01/16 20:56:31 by marvin           ###   ########.fr       */
+/*   Updated: 2024/01/22 12:20:43 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,11 @@ void	finish_thread(t_data *data)
 	i = -1;
 	while (++i < data->n_of_ph)
 		pthread_mutex_destroy(&data->forks[i]);
-	pthread_mutex_destroy(data->print);
+	pthread_mutex_destroy(data->wait);
 
 	free(data->ph);
 	free(data->philosopher);
 	free(data->forks);
+	free(data->wait);
 	free(data->print);
 }

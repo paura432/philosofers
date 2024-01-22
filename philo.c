@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 17:06:05 by pramos            #+#    #+#             */
-/*   Updated: 2024/01/16 20:56:58 by marvin           ###   ########.fr       */
+/*   Updated: 2024/01/22 12:28:45 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	print(t_data_ph *philo, char *message)
 {
-	if(philo->data->flag > 1)
+	if(philo->data->dead > 1)
 		return ;
 	pthread_mutex_lock(philo->data->print);
 	u_int64_t	time;
@@ -24,10 +24,10 @@ void	print(t_data_ph *philo, char *message)
 	pthread_mutex_unlock(philo->data->print);
 }
 
-// void	leaks(void)
-// {
-// 	system("leaks -q philo");
-// }
+void	leaks(void)
+{
+	system("leaks -q philo");
+}
 
 int	main(int ac, char **av)
 {

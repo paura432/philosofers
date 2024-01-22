@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 17:06:36 by pramos            #+#    #+#             */
-/*   Updated: 2024/01/16 20:49:15 by marvin           ###   ########.fr       */
+/*   Updated: 2024/01/22 12:15:07 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ typedef struct s_data_ph
 	int 				is_awake;
 	int					eat;
 	u_int64_t			t_4_dead;
-	pthread_mutex_t		*wait;
 	pthread_mutex_t		*fork_right;
 	pthread_mutex_t		*fork_left;
 	struct	s_data		*data;
@@ -52,6 +51,7 @@ typedef struct s_data
 	u_int64_t 			t_2_eat;
 	u_int64_t 			t_2_sleep;
 	pthread_mutex_t		*forks;
+	pthread_mutex_t		*wait;
 	pthread_mutex_t		*print;
 	pthread_t			*philosopher;
 	t_data_ph			*ph;

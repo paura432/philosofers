@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 17:03:30 by pramos            #+#    #+#             */
-/*   Updated: 2024/01/18 12:28:01 by marvin           ###   ########.fr       */
+/*   Updated: 2024/01/22 12:26:28 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,11 @@ void	forks_up(t_data_ph *philo)
 	print(philo, EATING);
 	philo->t_4_dead = get_time();
 	if (philo->id == philo->data->n_of_ph)
+	{
+		pthread_mutex_lock(philo->data->wait);
 		philo->data->times_eat += 1;
+		pthread_mutex_unlock(philo->data->wait);
+	}
 }
 
 void	forks_down(t_data_ph *philo)
@@ -35,6 +39,7 @@ void	free_threads(t_data_ph *philo)
 	free(philo->data->ph);
 	free(philo->data->philosopher);
 	free(philo->data->forks);
+	free(philo->data->wait);
 	free(philo->data->print);
 }
 
@@ -43,7 +48,7 @@ void	*philo_start(void *ph)
 	t_data_ph *philo;
 
 	philo = (t_data_ph *)ph;
-	while (philo->data->dead == 0 && philo->data->times_eat != philo->data->n_ph_eat)
+	while (philo->data->dead < 1)
 	{
 		forks_up(philo);
 		ft_usleep(philo, philo->data->t_2_eat);
@@ -51,6 +56,13 @@ void	*philo_start(void *ph)
 		print(philo, SLEEPING);
 		ft_usleep(philo, philo->data->t_2_sleep);
 		print(philo, THINKING);
+		pthread_mutex_lock(philo->data->wait);
+		if(philo->data->times_eat == philo->data->n_ph_eat)
+		{
+			pthread_mutex_unlock(philo->data->wait);
+			break;
+		}
+		pthread_mutex_unlock(philo->data->wait);
 	}
 	return NULL;
 }

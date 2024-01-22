@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 17:49:13 by pramos            #+#    #+#             */
-/*   Updated: 2024/01/18 12:12:15 by marvin           ###   ########.fr       */
+/*   Updated: 2024/01/22 12:15:30 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,16 @@ void	new_philo(t_data *data, int i)
 	data->ph[i].is_awake = 0;
 	data->ph[i].data = data;
 	data->ph[i].id = i + 1;
-	data->ph[i].fork_left = &data->forks[i];
-	printf("%i\n", i);
-	if (i + 1 != data->n_of_ph)
-		data->ph[i].fork_right = &data->forks[i + 1];
+	if (i == 0)
+	{
+		data->ph[i].fork_left = &data->forks[i];
+		data->ph[i].fork_right = &data->forks[data->n_of_ph - 1];
+	}
 	else
-		data->ph[i].fork_right = &data->forks[0];
+	{
+		data->ph[i].fork_left = &data->forks[i - 1];
+		data->ph[i].fork_right = &data->forks[i];
+	}
 }
 
 void	init_philo(t_data *data)
@@ -49,12 +53,14 @@ void	init_philo(t_data *data)
 	data->ph = malloc(sizeof(t_data_ph) * data->n_of_ph);
 	data->philosopher = malloc(sizeof(pthread_t) * data->n_of_ph);
 	data->forks = malloc(sizeof(pthread_mutex_t) * data->n_of_ph);
+	data->wait = malloc(sizeof(pthread_mutex_t));
 	data->print = malloc(sizeof(pthread_mutex_t));
 	while (++i < data->n_of_ph)
 	{
 		new_philo(data, i);
 		pthread_mutex_init(&data->forks[i], NULL);
 	}
+	pthread_mutex_init(data->wait, NULL);
 	pthread_mutex_init(data->print, NULL);
 	if (data->n_of_ph == 1)
 	{
