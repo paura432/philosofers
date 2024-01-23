@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 17:03:30 by pramos            #+#    #+#             */
-/*   Updated: 2024/01/22 12:26:28 by marvin           ###   ########.fr       */
+/*   Updated: 2024/01/23 11:54:20 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,16 +48,18 @@ void	*philo_start(void *ph)
 	t_data_ph *philo;
 
 	philo = (t_data_ph *)ph;
-	while (philo->data->dead < 1)
+	while (1)
 	{
 		forks_up(philo);
 		ft_usleep(philo, philo->data->t_2_eat);
 		forks_down(philo);
-		print(philo, SLEEPING);
+		if(print(philo, SLEEPING))
+			break;
 		ft_usleep(philo, philo->data->t_2_sleep);
-		print(philo, THINKING);
+		if(print(philo, THINKING))
+			break;
 		pthread_mutex_lock(philo->data->wait);
-		if(philo->data->times_eat == philo->data->n_ph_eat)
+		if(philo->data->times_eat == philo->data->n_ph_eat || philo->data->dead == 1)
 		{
 			pthread_mutex_unlock(philo->data->wait);
 			break;

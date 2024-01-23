@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 17:06:36 by pramos            #+#    #+#             */
-/*   Updated: 2024/01/22 12:15:07 by marvin           ###   ########.fr       */
+/*   Updated: 2024/01/23 11:46:19 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ typedef struct s_data
 	int 				n_of_ph;
 	int 				n_ph_eat;
 	int 				times_eat;
-	int					flag;
 	u_int64_t			start_time;
 	u_int64_t 			t_2_die;
 	u_int64_t 			t_2_eat;
@@ -76,7 +75,7 @@ void		*thread_create(void *ph);
 void		init_thread(t_data *data);
 void		forks_up(t_data_ph *philo);
 void		forks_down(t_data_ph *philo);
-void		print(t_data_ph *philo, char *message);
+int		print(t_data_ph *philo, char *message);
 
 //philos_things
 void		eat(t_data_ph *philo);

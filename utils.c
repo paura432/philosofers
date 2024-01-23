@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 17:53:59 by pramos            #+#    #+#             */
-/*   Updated: 2024/01/22 12:20:43 by marvin           ###   ########.fr       */
+/*   Updated: 2024/01/23 12:10:05 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,16 @@ void	ft_usleep(t_data_ph *philo, u_int64_t time)
 		usleep(100);
 		if (get_time() - philo->t_4_dead >= philo->data->t_2_die)
 		{
-			philo->data->dead += 1;
-			philo->data->flag += 1;
+			pthread_mutex_lock(philo->data->wait);
+			if(philo->data->dead == 0)
+			{
+				pthread_mutex_lock(philo->data->print);
+				philo->data->dead = 1;
+				pthread_mutex_unlock(philo->data->print);
+			}	
 			print(philo, DIED);
+			pthread_mutex_unlock(philo->data->wait);
+			return ;
 		}
 	}
 

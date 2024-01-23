@@ -1,4 +1,4 @@
-NAME = philo
+NAME = philosophers
 
 MY_SOURCES = philo.c init_data.c utils.c threads.c
 

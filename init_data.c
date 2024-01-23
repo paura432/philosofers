@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 17:49:13 by pramos            #+#    #+#             */
-/*   Updated: 2024/01/22 12:15:30 by marvin           ###   ########.fr       */
+/*   Updated: 2024/01/23 12:38:39 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	init_data(t_data *data, char **av, int ac)
 {
-	data->flag = 0;
 	data->start_time = get_time();
 	data->n_of_ph = ft_atoi(av[1]);
 	data->t_2_die = (u_int64_t) ft_atoi(av[2]);
