@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 17:06:05 by pramos            #+#    #+#             */
-/*   Updated: 2024/01/23 12:11:12 by marvin           ###   ########.fr       */
+/*   Updated: 2024/01/24 12:18:08 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	print(t_data_ph *philo, char *message)
 {
 	
 	pthread_mutex_lock(philo->data->print);
-	if(philo->data->dead > 1)
+	if(philo->data->dead > 1 || philo->data->times_eat == philo->data->n_ph_eat)
 	{
 		pthread_mutex_unlock(philo->data->print);
 		return (1);

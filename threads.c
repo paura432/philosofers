@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 17:03:30 by pramos            #+#    #+#             */
-/*   Updated: 2024/01/23 11:54:20 by marvin           ###   ########.fr       */
+/*   Updated: 2024/01/24 12:23:13 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ void	forks_up(t_data_ph *philo)
 	philo->t_4_dead = get_time();
 	if (philo->id == philo->data->n_of_ph)
 	{
-		pthread_mutex_lock(philo->data->wait);
+		pthread_mutex_lock(philo->data->print);
 		philo->data->times_eat += 1;
-		pthread_mutex_unlock(philo->data->wait);
+		pthread_mutex_unlock(philo->data->print);
 	}
 }
 
@@ -34,13 +34,16 @@ void	forks_down(t_data_ph *philo)
 	pthread_mutex_unlock(philo->fork_right);
 }
 
-void	free_threads(t_data_ph *philo)
+int	philo_continue(t_data_ph *philo)
 {
-	free(philo->data->ph);
-	free(philo->data->philosopher);
-	free(philo->data->forks);
-	free(philo->data->wait);
-	free(philo->data->print);
+
+	if(print(philo, SLEEPING))
+		return (1);
+	if(ft_usleep(philo, philo->data->t_2_sleep))
+		return (1);
+	if(print(philo, THINKING))
+		return (1);
+	return(0);
 }
 
 void	*philo_start(void *ph)
@@ -51,20 +54,18 @@ void	*philo_start(void *ph)
 	while (1)
 	{
 		forks_up(philo);
-		ft_usleep(philo, philo->data->t_2_eat);
+		if(ft_usleep(philo, philo->data->t_2_eat))
+			break ;
 		forks_down(philo);
-		if(print(philo, SLEEPING))
-			break;
-		ft_usleep(philo, philo->data->t_2_sleep);
-		if(print(philo, THINKING))
-			break;
-		pthread_mutex_lock(philo->data->wait);
-		if(philo->data->times_eat == philo->data->n_ph_eat || philo->data->dead == 1)
+		pthread_mutex_lock(philo->data->print);
+		if(philo->data->times_eat == philo->data->n_ph_eat || philo->data->dead > 1)
 		{
-			pthread_mutex_unlock(philo->data->wait);
+			pthread_mutex_unlock(philo->data->print);
 			break;
 		}
-		pthread_mutex_unlock(philo->data->wait);
+		pthread_mutex_unlock(philo->data->print);
+		if(philo_continue(philo))
+			break;
 	}
 	return NULL;
 }

@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 17:06:36 by pramos            #+#    #+#             */
-/*   Updated: 2024/01/23 11:46:19 by marvin           ###   ########.fr       */
+/*   Updated: 2024/01/24 12:11:08 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int			check_errors( char **av, int ac);
 //utils
 long 		ft_atoi(char *str);
 u_int64_t	get_time(void);
-void		ft_usleep(t_data_ph *philo, u_int64_t time);
+int			ft_usleep(t_data_ph *philo, u_int64_t time);
 void		finish_thread(t_data *data);
 
 //threads
@@ -75,7 +75,10 @@ void		*thread_create(void *ph);
 void		init_thread(t_data *data);
 void		forks_up(t_data_ph *philo);
 void		forks_down(t_data_ph *philo);
-int		print(t_data_ph *philo, char *message);
+int			philo_continue(t_data_ph *philo);
+
+//philo.c
+int			print(t_data_ph *philo, char *message);
 
 //philos_things
 void		eat(t_data_ph *philo);

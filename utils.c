@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 17:53:59 by pramos            #+#    #+#             */
-/*   Updated: 2024/01/23 12:10:05 by marvin           ###   ########.fr       */
+/*   Updated: 2024/01/24 12:26:47 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ u_int64_t	get_time(void)
 	return (time.tv_sec * (u_int64_t)1000) + (time.tv_usec / 1000);
 }
 
-void	ft_usleep(t_data_ph *philo, u_int64_t time)
+int	ft_usleep(t_data_ph *philo, u_int64_t time)
 {
 	u_int64_t slep_2;
 
@@ -55,21 +55,21 @@ void	ft_usleep(t_data_ph *philo, u_int64_t time)
 	while (get_time() - slep_2 < time && philo)
 	{
 		usleep(100);
-		if (get_time() - philo->t_4_dead >= philo->data->t_2_die)
+		if (get_time() - philo->t_4_dead > philo->data->t_2_die)
 		{
-			pthread_mutex_lock(philo->data->wait);
+			pthread_mutex_lock(philo->data->print);
 			if(philo->data->dead == 0)
 			{
-				pthread_mutex_lock(philo->data->print);
-				philo->data->dead = 1;
+				philo->data->dead += 1;
 				pthread_mutex_unlock(philo->data->print);
-			}	
-			print(philo, DIED);
-			pthread_mutex_unlock(philo->data->wait);
-			return ;
+				print(philo, DIED);
+				return (1);
+			}
+			pthread_mutex_unlock(philo->data->print);
+			return (1);
 		}
 	}
-
+	return (0);
 }
 
 void	finish_thread(t_data *data)
