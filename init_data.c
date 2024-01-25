@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 17:49:13 by pramos            #+#    #+#             */
-/*   Updated: 2024/01/24 11:59:27 by marvin           ###   ########.fr       */
+/*   Updated: 2024/01/25 11:51:29 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,11 @@ void	init_philo(t_data *data)
 	pthread_mutex_init(data->print, NULL);
 	if (data->n_of_ph == 1)
 	{
+		pthread_mutex_lock(data->ph->fork_left);
+		print(&data->ph[0], FORK_UP);
 		usleep(data->t_2_die * 1000);
 		print(&data->ph[0], DIED);
+		pthread_mutex_unlock(data->ph->fork_left);
 	}
 	if (data->n_ph_eat == 0)
 		data->n_ph_eat = -1;

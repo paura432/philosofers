@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 17:06:36 by pramos            #+#    #+#             */
-/*   Updated: 2024/01/24 12:11:08 by marvin           ###   ########.fr       */
+/*   Updated: 2024/01/25 12:12:00 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,33 +29,33 @@
 typedef struct s_data_ph
 {
 	int					id;
-	int 				is_awake;
+	int					is_awake;
 	int					eat;
 	u_int64_t			t_4_dead;
 	pthread_mutex_t		*fork_right;
 	pthread_mutex_t		*fork_left;
-	struct	s_data		*data;
+	struct s_data		*data;
 
-} t_data_ph;
+}	t_data_ph;
 
 //initial_data
 typedef struct s_data
 {
 	int					dead;
-	int 				n_of_ph;
-	int 				n_ph_eat;
-	int 				times_eat;
+	int					n_of_ph;
+	int					n_ph_eat;
+	int					times_eat;
 	u_int64_t			start_time;
-	u_int64_t 			t_2_die;
-	u_int64_t 			t_2_eat;
-	u_int64_t 			t_2_sleep;
+	u_int64_t			t_2_die;
+	u_int64_t			t_2_eat;
+	u_int64_t			t_2_sleep;
 	pthread_mutex_t		*forks;
 	pthread_mutex_t		*wait;
 	pthread_mutex_t		*print;
 	pthread_t			*philosopher;
 	t_data_ph			*ph;
 
-} t_data;
+}	t_data;
 
 //init_data
 void		init(t_data *data, char **av, int ac);
@@ -65,7 +65,7 @@ void		new_philo(t_data *data, int i);
 int			check_errors( char **av, int ac);
 
 //utils
-long 		ft_atoi(char *str);
+long		ft_atoi(char *str);
 u_int64_t	get_time(void);
 int			ft_usleep(t_data_ph *philo, u_int64_t time);
 void		finish_thread(t_data *data);

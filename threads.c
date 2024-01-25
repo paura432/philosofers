@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 17:03:30 by pramos            #+#    #+#             */
-/*   Updated: 2024/01/24 12:23:13 by marvin           ###   ########.fr       */
+/*   Updated: 2024/01/25 12:14:00 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,49 +36,49 @@ void	forks_down(t_data_ph *philo)
 
 int	philo_continue(t_data_ph *philo)
 {
-
-	if(print(philo, SLEEPING))
+	if (print(philo, SLEEPING))
 		return (1);
-	if(ft_usleep(philo, philo->data->t_2_sleep))
+	if (ft_usleep(philo, philo->data->t_2_sleep))
 		return (1);
-	if(print(philo, THINKING))
+	if (print(philo, THINKING))
 		return (1);
-	return(0);
+	return (0);
 }
 
 void	*philo_start(void *ph)
 {
-	t_data_ph *philo;
+	t_data_ph	*philo;
 
 	philo = (t_data_ph *)ph;
 	while (1)
 	{
 		forks_up(philo);
-		if(ft_usleep(philo, philo->data->t_2_eat))
+		if (ft_usleep(philo, philo->data->t_2_eat))
 			break ;
 		forks_down(philo);
 		pthread_mutex_lock(philo->data->print);
-		if(philo->data->times_eat == philo->data->n_ph_eat || philo->data->dead > 1)
+		if (philo->data->times_eat == philo->data->n_ph_eat
+			|| philo->data->dead > 1)
 		{
 			pthread_mutex_unlock(philo->data->print);
-			break;
+			break ;
 		}
 		pthread_mutex_unlock(philo->data->print);
-		if(philo_continue(philo))
-			break;
+		if (philo_continue(philo))
+			break ;
 	}
-	return NULL;
+	return (NULL);
 }
 
 void	init_thread(t_data *data)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (++i < data->n_of_ph && data->n_of_ph > 1)
-		pthread_create(&data->philosopher[i], NULL, &philo_start, (void *)&data->ph[i]);
+		pthread_create(&data->philosopher[i], NULL,
+			&philo_start, (void *)&data->ph[i]);
 	i = -1;
 	while (++i < data->n_of_ph && data->n_of_ph > 1)
 		pthread_join(data->philosopher[i], NULL);
-	
 }

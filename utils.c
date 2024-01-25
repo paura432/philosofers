@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 17:53:59 by pramos            #+#    #+#             */
-/*   Updated: 2024/01/24 12:26:47 by marvin           ###   ########.fr       */
+/*   Updated: 2024/01/25 12:15:44 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 long	ft_atoi(char *str)
 {
-	int	i;
+	int		i;
 	long	a;
-	int	signo;
+	int		signo;
 
 	a = 0;
 	signo = 1;
@@ -37,19 +37,19 @@ long	ft_atoi(char *str)
 
 u_int64_t	get_time(void)
 {
-	struct timeval time;
+	struct timeval	time;
 
 	if (gettimeofday(&time, NULL) == -1)
 	{
 		perror("Error in gettimeofday");
-		return 0;
+		return (0);
 	}
-	return (time.tv_sec * (u_int64_t)1000) + (time.tv_usec / 1000);
+	return ((time.tv_sec * (u_int64_t)1000) + (time.tv_usec / 1000));
 }
 
 int	ft_usleep(t_data_ph *philo, u_int64_t time)
 {
-	u_int64_t slep_2;
+	u_int64_t	slep_2;
 
 	slep_2 = get_time();
 	while (get_time() - slep_2 < time && philo)
@@ -58,7 +58,7 @@ int	ft_usleep(t_data_ph *philo, u_int64_t time)
 		if (get_time() - philo->t_4_dead > philo->data->t_2_die)
 		{
 			pthread_mutex_lock(philo->data->print);
-			if(philo->data->dead == 0)
+			if (philo->data->dead == 0)
 			{
 				philo->data->dead += 1;
 				pthread_mutex_unlock(philo->data->print);
@@ -74,13 +74,12 @@ int	ft_usleep(t_data_ph *philo, u_int64_t time)
 
 void	finish_thread(t_data *data)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (++i < data->n_of_ph)
 		pthread_mutex_destroy(&data->forks[i]);
 	pthread_mutex_destroy(data->wait);
-
 	free(data->ph);
 	free(data->philosopher);
 	free(data->forks);
