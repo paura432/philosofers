@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pramos <pramos@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 17:53:59 by pramos            #+#    #+#             */
-/*   Updated: 2024/01/25 12:15:44 by marvin           ###   ########.fr       */
+/*   Updated: 2024/01/29 20:53:21 by pramos           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ int	ft_usleep(t_data_ph *philo, u_int64_t time)
 			if (philo->data->dead == 0)
 			{
 				philo->data->dead += 1;
+				philo->data->id_ph = philo->id;
 				pthread_mutex_unlock(philo->data->print);
 				print(philo, DIED);
 				return (1);

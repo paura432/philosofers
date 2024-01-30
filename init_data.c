@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pramos <pramos@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 17:49:13 by pramos            #+#    #+#             */
-/*   Updated: 2024/01/25 11:51:29 by marvin           ###   ########.fr       */
+/*   Updated: 2024/01/30 16:56:02 by pramos           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	init_data(t_data *data, char **av, int ac)
 	data->t_2_sleep = (u_int64_t) ft_atoi(av[4]);
 	data->times_eat = 0;
 	data->dead = 0;
+	data->id_ph = 0;
 	if (ac == 6)
 		data->n_ph_eat = ft_atoi(av[5]);
 	else
@@ -76,6 +77,7 @@ void	init_philo(t_data *data)
 int	check_errors( char **av, int ac)
 {
 	int	i;
+	int	j;
 
 	i = 1;
 	if (ac > 6 || ac < 5)
@@ -84,6 +86,13 @@ int	check_errors( char **av, int ac)
 	{
 		if (!ft_atoi(av[i]))
 			return (printf("Only numbers\n"), 0);
+		j = 0;
+		while(av[i][j] != 0)
+		{
+			if(!(av[i][j] >= '0' && av[i][j] <= '9'))
+				return(printf("Only positive numbers\n"), 0);
+			j++;
+		}
 		i++;
 	}
 	return (1);

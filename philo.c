@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pramos <pramos@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 17:06:05 by pramos            #+#    #+#             */
-/*   Updated: 2024/01/25 12:09:14 by marvin           ###   ########.fr       */
+/*   Updated: 2024/01/30 16:58:32 by pramos           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,16 @@ int	print(t_data_ph *philo, char *message)
 	u_int64_t	time;
 
 	pthread_mutex_lock(philo->data->print);
-	if (philo->data->dead > 1
+	time = philo->data->start_time;
+
+	if ((philo->data->dead == 1
 		|| philo->data->times_eat == philo->data->n_ph_eat)
+		&& philo->data->id_ph != philo->id)
 	{
 		pthread_mutex_unlock(philo->data->print);
 		return (1);
 	}
-	if (philo->data->dead == 1)
-		philo->data->dead += 1;
-	time = philo->data->start_time;
-	printf("%lu ms %i %s\n", (get_time() - time), philo->id, message);
+	printf("%llu ms %i %s\n", (get_time() - time), philo->id, message);
 	pthread_mutex_unlock(philo->data->print);
 	return (0);
 }

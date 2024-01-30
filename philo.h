@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pramos <pramos@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 17:06:36 by pramos            #+#    #+#             */
-/*   Updated: 2024/01/25 12:12:00 by marvin           ###   ########.fr       */
+/*   Updated: 2024/01/29 20:51:40 by pramos           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct s_data_ph
 typedef struct s_data
 {
 	int					dead;
+	int					id_ph;
 	int					n_of_ph;
 	int					n_ph_eat;
 	int					times_eat;
