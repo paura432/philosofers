@@ -18,15 +18,14 @@ int	print(t_data_ph *philo, char *message)
 
 	pthread_mutex_lock(philo->data->print);
 	time = philo->data->start_time;
-
 	if ((philo->data->dead == 1
-		|| philo->data->times_eat == philo->data->n_ph_eat)
+			|| philo->data->times_eat == philo->data->n_ph_eat)
 		&& philo->data->id_ph != philo->id)
 	{
 		pthread_mutex_unlock(philo->data->print);
 		return (1);
 	}
-	printf("%llu ms %i %s\n", (get_time() - time), philo->id, message);
+	printf("%lu ms %i %s\n", (get_time() - time), philo->id, message);
 	pthread_mutex_unlock(philo->data->print);
 	return (0);
 }

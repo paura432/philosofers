@@ -33,6 +33,7 @@ void	new_philo(t_data *data, int i)
 	data->ph[i].is_awake = 0;
 	data->ph[i].data = data;
 	data->ph[i].id = i + 1;
+	data->ph[i].eat = 0;
 	if (i == 0)
 	{
 		data->ph[i].fork_left = &data->forks[i];
@@ -65,9 +66,7 @@ void	init_philo(t_data *data)
 	if (data->n_of_ph == 1)
 	{
 		pthread_mutex_lock(data->ph->fork_left);
-		print(&data->ph[0], FORK_UP);
-		usleep(data->t_2_die * 1000);
-		print(&data->ph[0], DIED);
+		printf("there's only 1 fork philo 1 DIED");
 		pthread_mutex_unlock(data->ph->fork_left);
 	}
 	if (data->n_ph_eat == 0)
@@ -87,10 +86,10 @@ int	check_errors( char **av, int ac)
 		if (!ft_atoi(av[i]))
 			return (printf("Only numbers\n"), 0);
 		j = 0;
-		while(av[i][j] != 0)
+		while (av[i][j] != 0)
 		{
-			if(!(av[i][j] >= '0' && av[i][j] <= '9'))
-				return(printf("Only positive numbers\n"), 0);
+			if (!(av[i][j] >= '0' && av[i][j] <= '9'))
+				return (printf("Only positive numbers\n"), 0);
 			j++;
 		}
 		i++;

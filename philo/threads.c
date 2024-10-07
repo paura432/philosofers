@@ -20,10 +20,10 @@ void	forks_up(t_data_ph *philo)
 	print(philo, FORK_UP);
 	print(philo, EATING);
 	philo->t_4_dead = get_time();
-	if (philo->id == philo->data->n_of_ph)
+	if (philo->eat < philo->data->times_eat || philo->data->dead == 0)
 	{
 		pthread_mutex_lock(philo->data->print);
-		philo->data->times_eat += 1;
+		philo->eat += 1;
 		pthread_mutex_unlock(philo->data->print);
 	}
 }
@@ -42,6 +42,8 @@ int	philo_continue(t_data_ph *philo)
 		return (1);
 	if (print(philo, THINKING))
 		return (1);
+	if (ft_usleep(philo, philo->data->t_2_eat - philo->data->t_2_sleep))
+		return (1);
 	return (0);
 }
 
@@ -57,8 +59,8 @@ void	*philo_start(void *ph)
 			break ;
 		forks_down(philo);
 		pthread_mutex_lock(philo->data->print);
-		if (philo->data->times_eat == philo->data->n_ph_eat
-			|| philo->data->dead > 1)
+		if (philo->eat == philo->data->n_ph_eat
+			|| philo->data->dead >= 1)
 		{
 			pthread_mutex_unlock(philo->data->print);
 			break ;
